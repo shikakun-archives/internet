@@ -17,7 +17,7 @@ configure :production do
   DB = Sequel.connect("mysql2://#{db[:user]}:#{db[:password]}@#{db[:host]}/#{db[:dbname]}")
 end
 
-class Users < Sequel::Model
+class Checkins < Sequel::Model
   unless table_exists?
     set_schema do
       primary_key :id
@@ -42,10 +42,6 @@ use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
 end
 
-not_found do
-  "404"
-end
-
 def tweet(tweets)
   if settings.environment == :production
     twitter_client = Twitter::Client.new
@@ -68,6 +64,7 @@ end
 
 get "/:address" do
   session['address'] = @params[:address]
+  @checkins = Checkins.limit(10).order_by(:id.desc)
   slim :index
 end
 
@@ -79,5 +76,13 @@ get "/auth/:provider/callback" do
   session['token'] = auth['credentials']['token']
   session['secret'] = auth['credentials']['secret']
   tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
-  redirect "/"
+  Checkins.create(
+    :uid => session['uid'],
+    :nickname => session['nickname'],
+    :image => session['image'],
+    :token => session['token'],
+    :secret => session['secret'],
+    :address => session['address']
+  )
+  redirect "/" + URI.escape(session['address'])
 end

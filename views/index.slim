@@ -1,6 +1,12 @@
-== styled_flash
 p
-  | インターネットの#{session[:address]}
+  | インターネットの
+  = session[:address]
 p
-  a href='/auth/twitter'
-    | チェックイン
+  input type="button" value="チェックイン" onClick="location.href='/auth/twitter'"
+ul
+  - @checkins.each do |checkins|
+    li 
+      = checkins.nickname
+      | &nbsp;が
+      = checkins.address
+      | にいました
