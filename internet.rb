@@ -69,7 +69,7 @@ get "/:address" do
 end
 
 get "/auth/:provider/callback" do
-#  auth = request.env["omniauth.auth"]
+  auth = request.env["omniauth.auth"]
 #  session['uid'] = auth['uid']
 #  session['nickname'] = auth['info']['nickname']
 #  session['image'] = auth['info']['image']
