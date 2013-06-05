@@ -42,13 +42,6 @@ use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
 end
 
-Twitter.configure do |config|
-  config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']
-  config.consumer_secret    = ENV['TWITTER_CONSUMER_SECRET']
-  config.oauth_token        = ENV['TWITTER_SHIKAKUN_TOKEN']
-  config.oauth_token_secret = ENV['TWITTER_SHIKAKUN_TOKEN_SECRET']
-end
-
 not_found do
   "404"
 end
@@ -60,6 +53,17 @@ def tweet(tweets)
   elsif settings.environment == :development
     flash.next[:info] = tweets
   end
+  
+  Twitter.configure do |config|
+    config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']
+    config.consumer_secret    = ENV['TWITTER_CONSUMER_SECRET']
+    config.oauth_token        = session['token']
+    config.oauth_token_secret = session['secret']
+  end
+end
+
+get "/" do
+  redirect "/%e6%b8%8b%e8%b0%b7"
 end
 
 get "/:address" do
@@ -74,5 +78,6 @@ get "/auth/:provider/callback" do
   session['image'] = auth['info']['image']
   session['token'] = auth['credentials']['token']
   session['secret'] = auth['credentials']['secret']
-  redirect session['address']
+  tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
+  redirect "/"
 end

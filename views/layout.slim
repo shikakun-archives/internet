@@ -1,6 +1,9 @@
 DOCTYPE html
 html
   head
-    title internet
+    title
+      | インターネット
+      - if @params[:address]
+        | の#{@params[:address]}
   body
     == yield
