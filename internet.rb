@@ -69,13 +69,13 @@ get "/:address" do
 end
 
 get "/auth/:provider/callback" do
-  auth = request.env["omniauth.auth"]
-  session['uid'] = auth['uid']
-  session['nickname'] = auth['info']['nickname']
-  session['image'] = auth['info']['image']
-  session['token'] = auth['credentials']['token']
-  session['secret'] = auth['credentials']['secret']
-  tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
+#  auth = request.env["omniauth.auth"]
+#  session['uid'] = auth['uid']
+#  session['nickname'] = auth['info']['nickname']
+#  session['image'] = auth['info']['image']
+#  session['token'] = auth['credentials']['token']
+#  session['secret'] = auth['credentials']['secret']
+#  tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
   Checkins.create(
     :uid => session['uid'],
     :nickname => session['nickname'],
