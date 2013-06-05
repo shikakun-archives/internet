@@ -1,0 +1,5 @@
+.bundle
+.env
+.sass-cache
+users.db
+vendor/bundle
