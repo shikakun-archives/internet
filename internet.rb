@@ -42,19 +42,21 @@ use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
 end
 
-def tweet(tweets)
-#  if settings.environment == :production
-#    twitter_client = Twitter::Client.new
-#    twitter_client.update(tweets)
-#  elsif settings.environment == :development
-    flash.next[:info] = tweets
-#  end
-  
+before do
   Twitter.configure do |config|
     config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']
     config.consumer_secret    = ENV['TWITTER_CONSUMER_SECRET']
     config.oauth_token        = session['token']
     config.oauth_token_secret = session['secret']
+  end
+end
+
+def tweet(tweets)
+  if settings.environment == :production
+    twitter_client = Twitter::Client.new
+    twitter_client.update(tweets)
+  elsif settings.environment == :development
+    flash.next[:info] = tweets
   end
 end
 
