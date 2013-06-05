@@ -44,10 +44,10 @@ end
 
 def tweet(tweets)
 #  if settings.environment == :production
-    twitter_client = Twitter::Client.new
-    twitter_client.update(tweets)
+#    twitter_client = Twitter::Client.new
+#    twitter_client.update(tweets)
 #  elsif settings.environment == :development
-#    flash.next[:info] = tweets
+    flash.next[:info] = tweets
 #  end
   
   Twitter.configure do |config|
