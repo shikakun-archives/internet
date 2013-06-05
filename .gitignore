@@ -1,5 +1,5 @@
 .bundle
 .env
 .sass-cache
-users.db
+checkins.db
 vendor/bundle
