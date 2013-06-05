@@ -43,12 +43,12 @@ use OmniAuth::Builder do
 end
 
 def tweet(tweets)
-  if settings.environment == :production
+#  if settings.environment == :production
     twitter_client = Twitter::Client.new
     twitter_client.update(tweets)
-  elsif settings.environment == :development
-    flash.next[:info] = tweets
-  end
+#  elsif settings.environment == :development
+#    flash.next[:info] = tweets
+#  end
   
   Twitter.configure do |config|
     config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']
@@ -75,7 +75,7 @@ get "/auth/:provider/callback" do
   session['image'] = auth['info']['image']
   session['token'] = auth['credentials']['token']
   session['secret'] = auth['credentials']['secret']
-#  tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
+  tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
   Checkins.create(
     :uid => session['uid'],
     :nickname => session['nickname'],
