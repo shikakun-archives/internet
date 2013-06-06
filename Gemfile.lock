@@ -6,6 +6,7 @@ GEM
     haml (4.0.3)
       tilt
     hashie (2.0.5)
+    httpclient (2.3.3)
     kgio (2.8.0)
     multi_json (1.7.6)
     multipart-post (1.2.0)
@@ -54,6 +55,7 @@ PLATFORMS
 
 DEPENDENCIES
   haml
+  httpclient
   mysql2
   omniauth
   omniauth-twitter
