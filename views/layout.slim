@@ -2,9 +2,10 @@ DOCTYPE html
 html
   head
     title
-      | インターネット
       - if @params[:address]
-        | の#{@params[:address]}
+        | #{@params[:address]}
+      - else
+        | インターネット
   body
     == styled_flash
     == yield

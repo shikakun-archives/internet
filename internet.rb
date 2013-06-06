@@ -77,7 +77,7 @@ get "/auth/:provider/callback" do
   session['image'] = auth['info']['image']
   session['token'] = auth['credentials']['token']
   session['secret'] = auth['credentials']['secret']
-  tweet(session['nickname'] + " はインターネットの" + session['address'] + "にいます")
+  tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
   Checkins.create(
     :uid => session['uid'],
     :nickname => session['nickname'],
