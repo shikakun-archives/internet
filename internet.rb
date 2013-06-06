@@ -60,6 +60,12 @@ def tweet(tweets)
   end
 end
 
+def ikachan(tweets)
+  ikachan_url = ENV['IKACHAN_PATH']
+  ikachan_client = HTTPClient.new()
+  puts ikachan_client.post_content(ikachan_url,'channel' => "#internet",'message' => tweets)
+end
+
 get "/" do
   redirect "/%e6%b8%8b%e8%b0%b7"
 end
@@ -86,5 +92,6 @@ get "/auth/:provider/callback" do
     :secret => session['secret'],
     :address => session['address']
   )
+  ikachan(session['nickname'] + " が " + session['address'] + " にいます")
   redirect "/" + URI.escape(session['address'])
 end
