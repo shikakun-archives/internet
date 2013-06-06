@@ -5,7 +5,10 @@ p
   input type="button" value="チェックイン" onClick="location.href='/auth/twitter'"
 ul
   - @checkins.each do |checkins|
-    li 
+    li
+      a href="http://twitter.com/#{checkins.nickname}" target="_blank"
+        img src="#{checkins.image}" alt="#{checkins.nickname}" width="16" height="16"
+      | &nbsp;
       = checkins.nickname
       | &nbsp;が
       = checkins.address
