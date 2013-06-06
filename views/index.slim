@@ -6,11 +6,10 @@ p
 ul
   - @checkins.each do |checkins|
     li
-      a href="http://twitter.com/#{checkins.nickname}" target="_blank"
+      a href="/#{checkins.nickname}"
         img src="#{checkins.image}" alt="#{checkins.nickname}" width="16" height="16"
-      | &nbsp;
-      = checkins.nickname
-      | &nbsp;が
+        = checkins.nickname
+      | &nbsp;が&nbsp;
       a href="#{checkins.address}"
         = checkins.address
-      | にいました
+      | &nbsp;にいました
