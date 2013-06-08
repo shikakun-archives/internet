@@ -1,1 +1,5 @@
-p SITEMAP
+ul
+  - @sitemaps.each do |sitemap|
+    li
+      a href="#{sitemap}"
+        = sitemap

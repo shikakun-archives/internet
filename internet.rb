@@ -84,6 +84,11 @@ get "/:address" do
   visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
   @mayor = visitors[0]
   if @params[:address] == "サイトマップ"
+    sites = Array.new
+    Checkins.each { |r|
+      sites << r.address
+    }
+    @sitemaps = sites.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
     slim :sitemap
   else
     slim :index
