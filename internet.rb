@@ -90,6 +90,9 @@ get "/:address" do
     }
     @sitemaps = sites.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
     slim :sitemap
+  elsif @params[:address] == "最近のチェックイン"
+    @recents = Checkins.limit(50).order_by(:id.desc)
+    slim :recent
   else
     slim :index
   end

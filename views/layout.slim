@@ -19,11 +19,15 @@ html
           = session[:address]
           | のメイヤーです
     == yield
-    - if @params[:address] != "サイトマップ"
-      p
-        a href="サイトマップ"
-          | サイトマップ
-    - else
-      p
-        a href="渋谷"
-          | 渋谷
+    ul
+      - if @params[:address] != "サイトマップ"
+        li
+          a href="サイトマップ"
+            | サイトマップ
+      - else
+        li
+          a href="渋谷"
+            | 渋谷
+      li
+        a href="最近のチェックイン"
+          | 最近のチェックイン
