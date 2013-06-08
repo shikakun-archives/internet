@@ -2,11 +2,12 @@ p
   = session[:address]
 p
   input type="button" value="チェックイン" onclick="location.href='/auth/twitter'"
-p
-  = @mayor
-  | &nbsp;さんが
-  = session[:address]
-  | のメイヤーです
+- if @mayor
+  p
+    = @mayor
+    | &nbsp;さんが
+    = session[:address]
+    | のメイヤーです
 ul
   - @checkins.each do |checkins|
     li
