@@ -8,4 +8,24 @@ html
         | インターネット
   body
     == styled_flash
+    p
+      = session[:address]
+    p
+      input type="button" value="チェックイン" onclick="location.href='/auth/twitter'"
     == yield
+    - if @mayor
+      p
+          = @mayor
+          | &nbsp;が
+          = session[:address]
+          | のメイヤーです
+    ul
+      - @checkins.each do |checkins|
+        li
+          a href="/#{checkins.nickname}"
+            img src="#{checkins.image}" alt="#{checkins.nickname}" width="16" height="16"
+            = checkins.nickname
+          | &nbsp;が&nbsp;
+          a href="#{checkins.address}"
+            = checkins.address
+          | &nbsp;にいました

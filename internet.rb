@@ -83,7 +83,11 @@ get "/:address" do
   }
   visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
   @mayor = visitors[0]
-  slim :index
+  if @params[:address] == "サイトマップ"
+    slim :sitemap
+  else
+    slim :index
+  end
 end
 
 get "/auth/:provider/callback" do
