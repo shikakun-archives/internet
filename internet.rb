@@ -74,7 +74,7 @@ get "/:address" do
   session['address'] = @params[:address]
   @checkins = Checkins.limit(10).order_by(:id.desc)
   visitors = Array.new
-  Checkins.filter(address: @params[:address]).each { |r|
+  Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
     visitors << r.nickname
   }
   visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
