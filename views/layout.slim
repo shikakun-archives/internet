@@ -24,10 +24,11 @@ html
         li
           a href="サイトマップ"
             | サイトマップ
-      - else
+      - if @params[:address] != "最近のチェックイン"
+        li
+          a href="最近のチェックイン"
+            | 最近のチェックイン
+      - if @params[:address] != "渋谷"
         li
           a href="渋谷"
             | 渋谷
-      li
-        a href="最近のチェックイン"
-          | 最近のチェックイン
