@@ -4,7 +4,6 @@ ul
       a href="/#{checkin.nickname}"
         img src="#{checkin.image}" alt="#{checkin.nickname}" width="16" height="16"
         = checkin.nickname
-      | &nbsp;が&nbsp;
-      a href="#{checkin.address}"
-        = checkin.address
-      | &nbsp;にいました
+      | &nbsp;が
+      = checkin.address
+      | にいました
