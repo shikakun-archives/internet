@@ -76,7 +76,6 @@ end
 
 get "/:address" do
   session['address'] = @params[:address]
-  @checkins = Checkins.limit(20).order_by(:id.desc)
   visitors = Array.new
   Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
     visitors << r.nickname
@@ -94,6 +93,7 @@ get "/:address" do
     @recents = Checkins.limit(50).order_by(:id.desc)
     slim :recent
   else
+    @checkins = Checkins.filter(address: @params[:address]).order_by(:id.desc)
     slim :index
   end
 end
