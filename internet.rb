@@ -73,6 +73,12 @@ end
 get "/:address" do
   session['address'] = @params[:address]
   @checkins = Checkins.limit(10).order_by(:id.desc)
+  visitors = Array.new
+  Checkins.filter(address: @params[:address]).each { |r|
+    visitors << r.nickname
+  }
+  visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
+  @mayor = visitors[0]
   slim :index
 end
 
