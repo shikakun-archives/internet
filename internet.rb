@@ -66,6 +66,10 @@ def ikachan(tweets)
   puts ikachan_client.post_content(ikachan_url,'channel' => "#internet",'message' => tweets)
 end
 
+not_found do
+  redirect "/%e6%b8%8b%e8%b0%b7"
+end
+
 get "/" do
   redirect "/%e6%b8%8b%e8%b0%b7"
 end
