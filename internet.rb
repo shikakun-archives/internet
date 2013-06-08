@@ -72,7 +72,7 @@ end
 
 get "/:address" do
   session['address'] = @params[:address]
-  @checkins = Checkins.limit(10).order_by(:id.desc)
+  @checkins = Checkins.limit(20).order_by(:id.desc)
   visitors = Array.new
   Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
     visitors << r.nickname
