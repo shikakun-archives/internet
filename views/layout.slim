@@ -19,17 +19,17 @@ html
           | &nbsp;が
           = session[:address]
           | のメイヤーです
-    ul
-      - @checkins.each do |checkin|
-        li
-          a href="/#{checkin.nickname}"
-            img src="#{checkin.image}" alt="#{checkin.nickname}" width="16" height="16"
-            = checkin.nickname
-          | &nbsp;が&nbsp;
-          a href="#{checkin.address}"
-            = checkin.address
-          | &nbsp;にいました
     - if @params[:address] != "サイトマップ"
+      ul
+        - @checkins.each do |checkin|
+          li
+            a href="/#{checkin.nickname}"
+              img src="#{checkin.image}" alt="#{checkin.nickname}" width="16" height="16"
+              = checkin.nickname
+            | &nbsp;が&nbsp;
+            a href="#{checkin.address}"
+              = checkin.address
+            | &nbsp;にいました
       p
         a href="サイトマップ"
           | サイトマップ
