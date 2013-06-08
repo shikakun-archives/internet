@@ -29,3 +29,11 @@ html
           a href="#{checkin.address}"
             = checkin.address
           | &nbsp;にいました
+    - if @params[:address] != "サイトマップ"
+      p
+        a href="サイトマップ"
+          | サイトマップ
+    - else
+      p
+        a href="渋谷"
+          | 渋谷
