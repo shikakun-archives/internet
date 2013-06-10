@@ -67,7 +67,11 @@ def ikachan(tweets)
 end
 
 not_found do
-  redirect "/%e6%b8%8b%e8%b0%b7"
+  redirect "/" + URI.escape("Not Found")
+end
+
+error 500 do
+  redirect "/" + URI.escape("Internal Server Error")
 end
 
 get "/" do
