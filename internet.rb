@@ -70,8 +70,8 @@ not_found do
   redirect "/" + URI.escape("Not Found")
 end
 
-error 500 do
-  redirect "/" + URI.escape("Internal Server Error")
+error do
+  redirect request.referer 
 end
 
 get "/" do
