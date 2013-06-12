@@ -67,7 +67,7 @@ def ikachan(tweets)
 end
 
 not_found do
-  redirect "/" + URI.escape("Not Found")
+  redirect "/" + URI.escape("404")
 end
 
 error do
