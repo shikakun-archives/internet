@@ -67,7 +67,11 @@ def ikachan(tweets)
 end
 
 not_found do
-  redirect "/%e6%b8%8b%e8%b0%b7"
+  redirect "/" + URI.escape("404")
+end
+
+error do
+  redirect request.referer 
 end
 
 get "/" do
@@ -75,7 +79,6 @@ get "/" do
 end
 
 get "/:address" do
-  session['address'] = @params[:address]
   visitors = Array.new
   Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
     visitors << r.nickname
@@ -96,6 +99,11 @@ get "/:address" do
     @checkins = Checkins.filter(address: @params[:address]).order_by(:id.desc)
     slim :index
   end
+end
+
+get "/:address/checkin" do
+  session['address'] = @params[:address]
+  redirect "/auth/twitter"
 end
 
 get "/auth/:provider/callback" do
