@@ -8,6 +8,7 @@ gem 'sequel'
 gem 'twitter', '~> 4.0'
 gem 'sinatra-flash', require: "sinatra/flash"
 gem 'httpclient'
+gem 'rss'
 gem 'shotgun'
 gem 'unicorn'
 
