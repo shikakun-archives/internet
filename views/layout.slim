@@ -12,12 +12,15 @@ html
       = @params[:address]
     p
       input type="button" value="チェックイン" onclick="location.href='/#{@params[:address]}/checkin'"
+    - if @details
+      p
+        == @details
     - if @mayor
       p
           = @mayor
           | &nbsp;が
           = @params[:address]
-          | のメイヤーです
+          | のメイヤーです。
     == yield
     ul
       - if @params[:address] != "サイトマップ"

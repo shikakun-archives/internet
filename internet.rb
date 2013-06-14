@@ -85,6 +85,14 @@ get "/:address" do
   }
   visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
   @mayor = visitors[0]
+  
+  keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
+  descriptions = Array.new
+  keyword.items.each { |r|
+    descriptions << r.description
+  }
+  @details = descriptions[0]
+  
   if @params[:address] == "サイトマップ"
     sites = Array.new
     Checkins.each { |r|
