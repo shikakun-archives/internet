@@ -91,7 +91,8 @@ get "/:address" do
   keyword.items.each { |r|
     descriptions << r.description
   }
-  @details = descriptions[0]
+  detail = descriptions[0].match(/.*?。/)
+  @details = detail[0]
   
   if @params[:address] == "サイトマップ"
     sites = Array.new
