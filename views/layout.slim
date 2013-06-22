@@ -8,6 +8,8 @@ html
         | インターネット
   body
     == styled_flash
+    - if @details
+      img src="http://#{@params[:address]}.jpg.to/" alt=""
     p
       = @params[:address]
     p
