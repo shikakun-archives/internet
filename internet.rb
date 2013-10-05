@@ -71,7 +71,7 @@ not_found do
 end
 
 error do
-  redirect request.referer 
+  redirect "/auth/twitter"
 end
 
 get "/" do
