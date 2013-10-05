@@ -2,7 +2,7 @@ ul
   - @checkins.each do |checkin|
     li
       a href="/#{checkin.nickname}"
-        img src="#{checkin.image}" alt="#{checkin.nickname}" width="16" height="16"
+        img src="#{checkin.image}" alt="" width="16" height="16"
         = checkin.nickname
       | &nbsp;が
       = checkin.address
