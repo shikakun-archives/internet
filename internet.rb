@@ -112,6 +112,18 @@ get "/:address" do
   end
 end
 
+get "/:address/button" do
+  content_type :txt
+  if request.port
+    host = "#{request.host}:#{request.port}"
+  else
+    host = request.host
+  end
+  javascript = <<-JAVASCRIPT
+document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=\\"location.href='http://#{host}/#{@params[:address]}/checkin'\\">");
+  JAVASCRIPT
+end
+
 get "/:address/checkin" do
   session['address'] = @params[:address]
   redirect "/auth/twitter"
