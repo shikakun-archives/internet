@@ -95,6 +95,8 @@ get "/:address" do
     detail = descriptions[0].match(/.*?。/)
     @details = detail[0]
   end
+
+  @button = request.url.gsub(/http:/, '') + '/button'
   
   if @params[:address] == "サイトマップ"
     sites = Array.new
