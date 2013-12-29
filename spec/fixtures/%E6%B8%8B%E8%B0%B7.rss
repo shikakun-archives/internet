@@ -1,0 +1,148 @@
+HTTP/1.1 200 OK
+Date: Sun, 29 Dec 2013 02:31:37 GMT
+Server: Apache
+X-Server: diarybackend54
+X-runtime: 56ms
+Last-modified: Mon, 22 Oct 2012 14:40:48 GMT
+X-pagemaker: KeywordRss
+X-Server: diarybackend54
+Content-Type: application/xml; charset=utf-8
+Set-Cookie: b=$1$HVKs01Zp$CFVJm3uFBdDSCt6q2JE9L1; path=/; expires=Sat, 24-Dec-33 02:31:37 GMT; domain=.hatena.ne.jp
+Vary: Accept-Encoding,User-Agent
+Transfer-Encoding: chunked
+
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:hatena="http://www.hatena.ne.jp/info/xmlns#"
+	xml:lang="ja">
+	<channel rdf:about="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB">
+		<title>はてなダイアリー - 渋谷とは</title>
+		<link>http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB</link>
+		<description>はてなダイアリー - 渋谷</description>
+		
+		<items>
+		<rdf:Seq>
+
+		    <rdf:li rdf:resource="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=4794"/>
+
+		    <rdf:li rdf:resource="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=84076"/>
+
+		    <rdf:li rdf:resource="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=377883"/>
+
+		    <rdf:li rdf:resource="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=377884"/>
+
+        </rdf:Seq>
+		</items>
+		
+	</channel>
+
+	<item rdf:about="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=4794">
+	    <title>渋谷</title>
+		<link>http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=4794</link>
+		<description>  東京都渋谷区の渋谷駅周辺にある新宿、池袋と並ぶ山手3大副都心の一つ。 西武百貨店、東急百貨店、PARCO、109（マルキュー）、丸井などの大型商業施設や、公園通り、センター街、スペイン坂などの特色のあるストリートなどからなる日本を代表する繁華街である。NHK、ハチ公など、有名なものを並べると切りがない。 1960年代までは、それ程脚光を浴びていた訳ではなかったが、西武セゾングループが昭和40年代に渋谷に進出し、公園通り一帯を開発した頃から、「若者の街」として流行を生み出すようになっていった。特に198 ...</description>
+		<content:encoded><![CDATA[
+		<div class="section">
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C5%EC%B5%FE%C5%D4">東京都</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%B6%E8">渋谷区</a>の<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%B1%D8">渋谷駅</a>周辺にある<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BF%B7%BD%C9">新宿</a>、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C3%D3%C2%DE">池袋</a>と並ぶ山手3大<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C9%FB%C5%D4%BF%B4">副都心</a>の一つ。</p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C0%BE%C9%F0%C9%B4%B2%DF%C5%B9">西武百貨店</a>、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C5%EC%B5%DE%C9%B4%B2%DF%C5%B9">東急百貨店</a>、<a class="keyword" href="http://d.hatena.ne.jp/keyword/PARCO">PARCO</a>、109（<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%DE%A5%EB%A5%AD%A5%E5%A1%BC">マルキュー</a>）、丸井などの大型<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BE%A6%B6%C8%BB%DC%C0%DF">商業施設</a>や、公園通り、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%BB%A5%F3%A5%BF%A1%BC%B3%B9">センター街</a>、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%DA%A5%A4%A5%F3%BA%E4">スペイン坂</a>などの特色のあるストリートなどからなる日本を代表する繁華街である。<a class="keyword" href="http://d.hatena.ne.jp/keyword/NHK">NHK</a>、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%CF%A5%C1%B8%F8">ハチ公</a>など、有名なものを並べると切りがない。</p>
+			<p>1960年代までは、それ程脚光を浴びていた訳ではなかったが、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C0%BE%C9%F0">西武</a>セゾングループが昭和40年代に<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB">渋谷</a>に進出し、公園通り一帯を開発した頃から、「若者の街」として流行を生み出すようになっていった。特に1980年代は、公園通りが注目を浴び、「セゾン文化」なる言葉まで生まれた。<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C0%BE%C9%F0%C9%B4%B2%DF%C5%B9">西武百貨店</a>や<a class="keyword" href="http://d.hatena.ne.jp/keyword/PARCO">PARCO</a>、<a class="keyword" href="http://d.hatena.ne.jp/keyword/PARCO">PARCO</a>劇場、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%B9%A5%DA%A5%A4%A5%F3%BA%E4">スペイン坂</a>など、セゾンが打ち出す戦略は、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C5%EC%B5%DE">東急</a>を刺激し、109や<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C5%EC%B5%DE%CA%B8%B2%BD%C2%BC">東急文化村</a>などを出現させるに至り、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB">渋谷</a>東西戦争といわれ、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C0%BE%C9%F0">西武</a>と<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C5%EC%B5%DE">東急</a>が競い合うことで<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB">渋谷</a>の街が盛り上がっていった。</p>
+		</div>
+
+		<div class="section">
+			<h3 class="title"><a href="/keyword/%BD%C2%C3%AB?kid=4794#p1" name="p1">関連項目</a></h3>
+			<p class="sectionheader"></p>
+			<p>・<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%B6%E8">渋谷区</a>・・・<a class="keyword" href="http://d.hatena.ne.jp/keyword/%C5%EC%B5%FE%C5%D4">東京都</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%B6%E8">渋谷区</a>のこと。</p>
+			<p>・<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%B1%D8">渋谷駅</a>→「<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%B1%D8">渋谷駅</a>」を参照。なお、<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BE%AE%C5%C4%B5%DE">小田急</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%B9%BE%A5%CE%C5%E7%C0%FE">江ノ島線</a>に「<a class="keyword" href="http://d.hatena.ne.jp/keyword/%B9%E2%BA%C2%BD%C2%C3%AB">高座渋谷</a>」という駅があるが、この駅は地元住民から「<a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB">渋谷</a>」と呼ばれている。</p>
+		</div>
+]]></content:encoded>
+		<dc:date>2009-12-07T02:22:54+09:00</dc:date>
+		<dc:subject>地理</dc:subject>
+		<hatena:score>23</hatena:score>
+		<hatena:contentscore>33</hatena:contentscore>
+		<hatena:furigana>しぶや</hatena:furigana>
+
+		<hatena:imageurl>http://d.hatena.ne.jp/images/keyword/4794.jpg</hatena:imageurl>
+		<hatena:imageurlsmall>http://d.hatena.ne.jp/images/keyword/4794_m.gif</hatena:imageurlsmall>
+
+	</item>
+
+	<item rdf:about="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=84076">
+	    <title>渋谷</title>
+		<link>http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=84076</link>
+		<description>  リスト::日本人の苗字 「しぶたに」と読む場合あり。   主な有名人   名前なまえ別名肩書き解説 渋谷飛鳥しぶやあすか-美少女クラブ31- 渋谷哲平しぶやてっぺい-歌手・俳優- 渋谷陽一しぶやよういち-音楽評論家- 渋谷すばるしぶたにすばる-関ジャニ∞-    * リスト：リスト::ジャニーズ関連キーワード//人名  </description>
+		<content:encoded><![CDATA[
+		<div class="section">
+			<p>リスト::日本人の苗字</p>
+			<p>「しぶたに」と読む場合あり。</p>
+		</div>
+
+		<div class="section">
+			<h3 class="title"><a href="/keyword/%BD%C2%C3%AB?kid=84076#p1" name="p1">主な有名人</a></h3>
+			<p class="sectionheader"></p>
+
+			<table>
+				<tr><th>名前</th><th>なまえ</th><th>別名</th><th>肩書き</th><th>解説</th></tr>
+				<tr><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%C8%F4%C4%BB">渋谷飛鳥</a></td><td>しぶやあすか</td><td>-</td><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C8%FE%BE%AF%BD%F7%A5%AF%A5%E9%A5%D631">美少女クラブ31</a></td><td>-</td></tr>
+				<tr><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%C5%AF%CA%BF">渋谷哲平</a></td><td>しぶやてっぺい</td><td>-</td><td>歌手・俳優</td><td>-</td></tr>
+				<tr><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%CD%DB%B0%EC">渋谷陽一</a></td><td>しぶやよういち</td><td>-</td><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%B2%BB%B3%DA%C9%BE%CF%C0%B2%C8">音楽評論家</a></td><td>-</td></tr>
+				<tr><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB%A4%B9%A4%D0%A4%EB">渋谷すばる</a></td><td>しぶたにすばる</td><td>-</td><td><a class="keyword" href="http://d.hatena.ne.jp/keyword/%B4%D8%A5%B8%A5%E3%A5%CB%A1%E7">関ジャニ∞</a></td><td>-</td></tr>
+
+			</table>
+			<p><br></p>
+			<p> * リスト：<a class="keyword" href="http://d.hatena.ne.jp/keyword/%A5%EA%A5%B9%A5%C8%3A%3A%A5%B8%A5%E3%A5%CB%A1%BC%A5%BA%B4%D8%CF%A2%A5%AD%A1%BC%A5%EF%A1%BC%A5%C9//%BF%CD%CC%BE">リスト::ジャニーズ関連キーワード//人名</a></p>
+		</div>
+]]></content:encoded>
+		<dc:date>2006-06-23T14:45:19+09:00</dc:date>
+		<dc:subject>一般</dc:subject>
+		<hatena:score>23</hatena:score>
+		<hatena:contentscore>0</hatena:contentscore>
+		<hatena:furigana>しぶや</hatena:furigana>
+
+	</item>
+
+	<item rdf:about="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=377883">
+	    <title>渋谷</title>
+		<link>http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=377883</link>
+		<description>  地名  福島県耶麻郡猪苗代町 渋谷 大阪府池田市 渋谷 兵庫県篠山市 渋谷  </description>
+		<content:encoded><![CDATA[
+		<div class="section">
+			<h3 class="title"><a href="/keyword/%BD%C2%C3%AB?kid=377883#p1" name="p1">地名</a></h3>
+			<p class="sectionheader"></p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%A1%C5%E7%B8%A9">福島県</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%CC%ED%CB%E3%B7%B4">耶麻郡</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C3%F6%C9%C4%C2%E5%C4%AE">猪苗代町</a> 渋谷</p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C2%E7%BA%E5%C9%DC">大阪府</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C3%D3%C5%C4%BB%D4">池田市</a> 渋谷</p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%CA%BC%B8%CB%B8%A9">兵庫県</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BC%C4%BB%B3%BB%D4">篠山市</a> 渋谷</p>
+		</div>
+]]></content:encoded>
+		<dc:date>2012-10-22T23:39:25+09:00</dc:date>
+		<dc:subject>地理</dc:subject>
+		<hatena:score>23</hatena:score>
+		<hatena:contentscore>0</hatena:contentscore>
+		<hatena:furigana>しぶたに</hatena:furigana>
+
+	</item>
+
+	<item rdf:about="http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=377884">
+	    <title>渋谷</title>
+		<link>http://d.hatena.ne.jp/keyword/%BD%C2%C3%AB?kid=377884</link>
+		<description>  地名  千葉県茂原市 渋谷 神奈川県大和市 渋谷 富山県高岡市 渋谷  </description>
+		<content:encoded><![CDATA[
+		<div class="section">
+			<h3 class="title"><a href="/keyword/%BD%C2%C3%AB?kid=377884#p1" name="p1">地名</a></h3>
+			<p class="sectionheader"></p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C0%E9%CD%D5%B8%A9">千葉県</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%CC%D0%B8%B6%BB%D4">茂原市</a> 渋谷</p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%BF%C0%C6%E0%C0%EE%B8%A9">神奈川県</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C2%E7%CF%C2%BB%D4">大和市</a> 渋谷</p>
+			<p><a class="keyword" href="http://d.hatena.ne.jp/keyword/%C9%D9%BB%B3%B8%A9">富山県</a><a class="keyword" href="http://d.hatena.ne.jp/keyword/%B9%E2%B2%AC%BB%D4">高岡市</a> 渋谷</p>
+		</div>
+]]></content:encoded>
+		<dc:date>2012-10-22T23:40:48+09:00</dc:date>
+		<dc:subject>地理</dc:subject>
+		<hatena:score>23</hatena:score>
+		<hatena:contentscore>0</hatena:contentscore>
+		<hatena:furigana>しぶや</hatena:furigana>
+
+	</item>
+
+</rdf:RDF>

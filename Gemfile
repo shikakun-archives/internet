@@ -14,7 +14,11 @@ gem 'unicorn'
 
 group :development do
   gem 'sqlite3'
-  gem 'rspec'
+  group :test do
+    gem 'rspec'
+    gem 'rack-test'
+    gem 'webmock'
+  end
 end
 
 group :production do
