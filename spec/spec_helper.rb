@@ -11,6 +11,7 @@ require 'open-uri'
 require 'slim'
 require 'webmock/rspec'
 require 'uri'
+require 'dotenv'
 
 set :environment, :test
 set :views, File.join(File.dirname(__FILE__), '..', 'views')

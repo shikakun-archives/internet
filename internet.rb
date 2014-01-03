@@ -1,5 +1,6 @@
 # coding: utf-8
 
+Dotenv.load
 Sequel::Model.plugin(:schema)
 
 db = {
@@ -87,11 +88,11 @@ get "/:address" do
     @sitemaps = sites.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
     slim :sitemap
   elsif @params[:address] == "最近のチェックイン"
-    @recents = Checkins.limit(50).order_by(:id.desc)
+    @recents = Checkins.limit(50).order_by(Sequel.desc(:id))
     slim :recent
   else
     visitors = Array.new
-    Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
+    Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id)).each { |r|
       visitors << r.nickname
     }
     visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
@@ -109,7 +110,7 @@ get "/:address" do
 
     @button = request.url.gsub(/http:/, '') + '/button'
 
-    @checkins = Checkins.filter(address: @params[:address]).order_by(:id.desc)
+    @checkins = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id))
     slim :index
   end
 end

@@ -11,6 +11,7 @@ gem 'httpclient'
 gem 'simple-rss'
 gem 'shotgun'
 gem 'unicorn'
+gem 'dotenv'
 
 group :development do
   gem 'sqlite3'
