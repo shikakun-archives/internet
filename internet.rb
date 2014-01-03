@@ -1,4 +1,5 @@
 # coding: utf-8
+require 'securerandom'
 
 Dotenv.load
 Sequel::Model.plugin(:schema)
@@ -109,6 +110,7 @@ get "/:address" do
     end
 
     @button = request.url.gsub(/http:/, '') + '/button'
+    session['csrf_token'] = SecureRandom.base64
 
     @checkins = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id))
     slim :index
@@ -122,9 +124,26 @@ document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=
   JAVASCRIPT
 end
 
-get "/:address/checkin" do
-  session['address'] = @params[:address]
-  redirect "/auth/twitter"
+before "/:address/checkin" do
+  redirect "/#{@params[:address]}" unless @params[:csrf_token] == session['csrf_token']
+  twitter_clinet = Twitter::Client.new
+  unless twitter_clinet.verify_credentials
+    session['address'] = @params[:address]
+    redirect "/auth/twitter"
+  end
+end
+
+post "/:address/checkin" do
+  Checkins.create(
+    :uid => session['uid'],
+    :nickname => session['nickname'],
+    :image => session['image'],
+    :token => session['token'],
+    :secret => session['secret'],
+    :address => session['address']
+  )
+  tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
+  ikachan(session['nickname'] + " が " + session['address'] + " にいます")
 end
 
 get "/auth/:provider/callback" do
@@ -134,15 +153,5 @@ get "/auth/:provider/callback" do
   session['image'] = auth['info']['image']
   session['token'] = auth['credentials']['token']
   session['secret'] = auth['credentials']['secret']
-  tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
-  Checkins.create(
-    :uid => session['uid'],
-    :nickname => session['nickname'],
-    :image => session['image'],
-    :token => session['token'],
-    :secret => session['secret'],
-    :address => session['address']
-  )
-  ikachan(session['nickname'] + " が " + session['address'] + " にいます")
   redirect "/" + URI.escape(session['address'])
 end
