@@ -24,12 +24,7 @@ describe 'The Internet' do
       end
     end
 
-    describe 'get /サイトマップ and get /最近のチェックイン' do
-      before do
-        stub_request(:get, "http://d.hatena.ne.jp/keyword?ie=utf8&mode=rss&word=#{encoded_path}").
-          to_return(body: 'OK')
-      end
-
+    describe 'get /サイトマップ and /最近のチェックイン' do
       %w[サイトマップ 最近のチェックイン].each do |path|
         let(:encoded_path) do
           URI.escape(path)

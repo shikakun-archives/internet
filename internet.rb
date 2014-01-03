@@ -79,25 +79,6 @@ get "/" do
 end
 
 get "/:address" do
-  visitors = Array.new
-  Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
-    visitors << r.nickname
-  }
-  visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
-  @mayor = visitors[0]
-  
-  keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
-  descriptions = Array.new
-  keyword.items.each { |r|
-    descriptions << r.description
-  }
-  if /。/ =~ descriptions[0]
-    detail = descriptions[0].match(/.*?。/)
-    @details = detail[0]
-  end
-
-  @button = request.url.gsub(/http:/, '') + '/button'
-  
   if @params[:address] == "サイトマップ"
     sites = Array.new
     Checkins.each { |r|
@@ -109,6 +90,25 @@ get "/:address" do
     @recents = Checkins.limit(50).order_by(:id.desc)
     slim :recent
   else
+    visitors = Array.new
+    Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
+      visitors << r.nickname
+    }
+    visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
+    @mayor = visitors[0]
+
+    keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
+    descriptions = Array.new
+    keyword.items.each { |r|
+      descriptions << r.description
+    }
+    if /。/ =~ descriptions[0]
+      detail = descriptions[0].match(/.*?。/)
+      @details = detail[0]
+    end
+
+    @button = request.url.gsub(/http:/, '') + '/button'
+
     @checkins = Checkins.filter(address: @params[:address]).order_by(:id.desc)
     slim :index
   end
