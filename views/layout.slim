@@ -13,7 +13,7 @@ html
     p
       = @params[:address]
 
-    form action="//#{@params[:address]}/checkin" method="post"
+    form action="/#{@params[:address]}/checkin" method="post"
       input type="hidden" name="csrf_token" value="#{session['csrf_token']}"
       p
         input type="submit" value="チェックイン"
