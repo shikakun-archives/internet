@@ -125,7 +125,7 @@ document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=
 end
 
 before "/:address/checkin" do
-  redirect "/#{@params[:address]}" unless @params[:csrf_token] == session['csrf_token']
+  redirect "/#{URI.escape(@params[:address])}" unless @params[:csrf_token] == session['csrf_token']
   twitter_clinet = Twitter::Client.new
   unless twitter_clinet.verify_credentials
     session['address'] = @params[:address]
