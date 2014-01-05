@@ -15,6 +15,7 @@ gem 'dotenv'
 
 group :development do
   gem 'sqlite3'
+  gem 'awesome_print'
   group :test do
     gem 'rspec'
     gem 'rack-test'

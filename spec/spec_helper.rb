@@ -12,6 +12,7 @@ require 'slim'
 require 'webmock/rspec'
 require 'uri'
 require 'dotenv'
+require 'awesome_print'
 
 set :environment, :test
 set :views, File.join(File.dirname(__FILE__), '..', 'views')
