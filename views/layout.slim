@@ -8,7 +8,7 @@ html
         | インターネット
   body
     == styled_flash
-    - if @details
+    - if @detail
       img src="http://#{@params[:address]}.jpg.to/" alt=""
     p
       = @params[:address]
@@ -18,9 +18,9 @@ html
       p
         input type="submit" value="チェックイン"
 
-    - if @details
+    - if @detail
       p
-        == @details
+        == @detail
     - if @mayor
       p
           = @mayor

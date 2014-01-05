@@ -104,9 +104,8 @@ get "/:address" do
     keyword.items.each { |r|
       descriptions << r.description
     }
-    if /。/ =~ descriptions[0]
-      detail = descriptions[0].match(/.*?。/)
-      @details = detail[0]
+    if descriptions[0] && /。/ =~ descriptions[0].force_encoding('UTF-8')
+      @detail = descriptions[0].force_encoding('UTF-8').split('。').first
     end
 
     @button = request.url.gsub(/http:/, '') + '/button'
@@ -125,7 +124,7 @@ document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=
 end
 
 before "/:address/checkin" do
-  redirect "/#{URI.escape(@params[:address])}" unless @params[:csrf_token] == session['csrf_token']
+  redirect "/#{URI.escape(@params[:address])}", 'csrf token is invalid' unless @params[:csrf_token] == session['csrf_token']
   twitter_clinet = Twitter::Client.new
   unless twitter_clinet.verify_credentials
     session['address'] = @params[:address]
