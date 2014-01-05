@@ -12,7 +12,7 @@ db = {
 }
 
 configure :development do
-  DB = Sequel.connect("sqlite://checkins.db")
+  DB = Sequel.connect("sqlite://db/#{settings.environment}.db")
 end
 
 configure :production do
@@ -63,7 +63,7 @@ def tweet(tweets)
 end
 
 def ikachan(tweets)
-  return false if ENV['IKACHAN_PATH'] == nil || ENV['IKACHAN_PATH'].empty?
+  return false if ENV['IKACHAN_PATH'].nil? || ENV['IKACHAN_PATH'].empty?
   ikachan_url = ENV['IKACHAN_PATH']
   ikachan_client = HTTPClient.new()
   puts ikachan_client.post_content(ikachan_url,'channel' => "#internet",'message' => tweets)
@@ -119,13 +119,16 @@ end
 
 get "/:address/button" do
   content_type :txt
-  javascript = <<-JAVASCRIPT
+  <<-JAVASCRIPT
 document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=\\"location.href='http://#{request.host}/#{@params[:address]}/checkin'\\">");
   JAVASCRIPT
 end
 
 before "/:address/checkin" do
-  redirect "/#{URI.escape(@params[:address])}", 'csrf token is invalid' unless @params[:csrf_token] == session['csrf_token']
+  if @params[:csrf_token] != session['csrf_token']
+    flash[:alert] = 'csrf token is invalid'
+    redirect "/#{URI.escape(@params[:address])}"
+  end
   twitter_clinet = Twitter::Client.new
   begin
     twitter_clinet.verify_credentials

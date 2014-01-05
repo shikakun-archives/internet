@@ -18,7 +18,7 @@ set :environment, :test
 set :root, File.join(File.dirname(__FILE__), '..')
 set :views, File.join(File.dirname(__FILE__), '..', 'views')
 configure :test do
-  db_path = "#{settings.root}/checkins_test.db"
+  db_path = "#{settings.root}/db/test.db"
   DB = Sequel.connect("sqlite://#{db_path}")
 end
 
