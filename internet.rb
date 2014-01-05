@@ -127,7 +127,9 @@ end
 before "/:address/checkin" do
   redirect "/#{URI.escape(@params[:address])}", 'csrf token is invalid' unless @params[:csrf_token] == session['csrf_token']
   twitter_clinet = Twitter::Client.new
-  unless twitter_clinet.verify_credentials
+  begin
+    twitter_clinet.verify_credentials
+  rescue
     session['address'] = @params[:address]
     redirect "/auth/twitter"
   end
