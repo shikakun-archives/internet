@@ -63,6 +63,7 @@ def tweet(tweets)
 end
 
 def ikachan(tweets)
+  return false if ENV['IKACHAN_PATH'] == nil || ENV['IKACHAN_PATH'].empty?
   ikachan_url = ENV['IKACHAN_PATH']
   ikachan_client = HTTPClient.new()
   puts ikachan_client.post_content(ikachan_url,'channel' => "#internet",'message' => tweets)
