@@ -146,6 +146,7 @@ post "/:address/checkin" do
   )
   tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
   ikachan(session['nickname'] + " が " + session['address'] + " にいます")
+  redirect "/#{URI.escape(@params[:address])}"
 end
 
 get "/auth/:provider/callback" do
