@@ -8,15 +8,19 @@ html
         | インターネット
   body
     == styled_flash
-    - if @details
+    - if @detail
       img src="http://#{@params[:address]}.jpg.to/" alt=""
     p
       = @params[:address]
-    p
-      input type="button" value="チェックイン" onclick="location.href='/#{@params[:address]}/checkin'"
-    - if @details
+
+    form action="/#{@params[:address]}/checkin" method="post"
+      input type="hidden" name="csrf_token" value="#{session['csrf_token']}"
       p
-        == @details
+        input type="submit" value="チェックイン"
+
+    - if @detail
+      p
+        == @detail
     - if @mayor
       p
           = @mayor

@@ -11,9 +11,16 @@ gem 'httpclient'
 gem 'simple-rss'
 gem 'shotgun'
 gem 'unicorn'
+gem 'dotenv'
 
 group :development do
   gem 'sqlite3'
+  gem 'awesome_print'
+  group :test do
+    gem 'rspec'
+    gem 'rack-test'
+    gem 'webmock'
+  end
 end
 
 group :production do

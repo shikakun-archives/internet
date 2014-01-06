@@ -1,5 +1,7 @@
 # coding: utf-8
+require 'securerandom'
 
+Dotenv.load
 Sequel::Model.plugin(:schema)
 
 db = {
@@ -10,7 +12,7 @@ db = {
 }
 
 configure :development do
-  DB = Sequel.connect("sqlite://checkins.db")
+  DB = Sequel.connect("sqlite://db/#{settings.environment}.db")
 end
 
 configure :production do
@@ -61,6 +63,7 @@ def tweet(tweets)
 end
 
 def ikachan(tweets)
+  return false if ENV['IKACHAN_PATH'].nil? || ENV['IKACHAN_PATH'].empty?
   ikachan_url = ENV['IKACHAN_PATH']
   ikachan_client = HTTPClient.new()
   puts ikachan_client.post_content(ikachan_url,'channel' => "#internet",'message' => tweets)
@@ -79,25 +82,6 @@ get "/" do
 end
 
 get "/:address" do
-  visitors = Array.new
-  Checkins.filter(address: @params[:address]).order_by(:id.desc).each { |r|
-    visitors << r.nickname
-  }
-  visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
-  @mayor = visitors[0]
-  
-  keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
-  descriptions = Array.new
-  keyword.items.each { |r|
-    descriptions << r.description
-  }
-  if /。/ =~ descriptions[0]
-    detail = descriptions[0].match(/.*?。/)
-    @details = detail[0]
-  end
-
-  @button = request.url.gsub(/http:/, '') + '/button'
-  
   if @params[:address] == "サイトマップ"
     sites = Array.new
     Checkins.each { |r|
@@ -106,24 +90,66 @@ get "/:address" do
     @sitemaps = sites.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
     slim :sitemap
   elsif @params[:address] == "最近のチェックイン"
-    @recents = Checkins.limit(50).order_by(:id.desc)
+    @recents = Checkins.limit(50).order_by(Sequel.desc(:id))
     slim :recent
   else
-    @checkins = Checkins.filter(address: @params[:address]).order_by(:id.desc)
+    visitors = Array.new
+    Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id)).each { |r|
+      visitors << r.nickname
+    }
+    visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
+    @mayor = visitors[0]
+
+    keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
+    descriptions = Array.new
+    keyword.items.each { |r|
+      descriptions << r.description
+    }
+    if descriptions[0] && /。/ =~ descriptions[0].force_encoding('UTF-8')
+      @detail = descriptions[0].force_encoding('UTF-8').split('。').first
+    end
+
+    @button = request.url.gsub(/http:/, '') + '/button'
+    session['csrf_token'] = SecureRandom.base64
+
+    @checkins = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id))
     slim :index
   end
 end
 
 get "/:address/button" do
   content_type :txt
-  javascript = <<-JAVASCRIPT
+  <<-JAVASCRIPT
 document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=\\"location.href='http://#{request.host}/#{@params[:address]}/checkin'\\">");
   JAVASCRIPT
 end
 
-get "/:address/checkin" do
-  session['address'] = @params[:address]
-  redirect "/auth/twitter"
+before "/:address/checkin" do
+  if @params[:csrf_token] != session['csrf_token']
+    flash[:alert] = 'csrf token is invalid'
+    redirect "/#{URI.escape(@params[:address])}"
+  end
+  twitter_clinet = Twitter::Client.new
+  begin
+    twitter_clinet.verify_credentials
+  rescue
+    session['address'] = @params[:address]
+    redirect "/auth/twitter"
+  end
+end
+
+post "/:address/checkin" do
+  Checkins.create(
+    :uid => session['uid'],
+    :nickname => session['nickname'],
+    :image => session['image'],
+    :token => session['token'],
+    :secret => session['secret'],
+    :address => session['address']
+  )
+  tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
+  ikachan(session['nickname'] + " が " + session['address'] + " にいます")
+  redirect "/#{URI.escape(@params[:address])}"
 end
 
 get "/auth/:provider/callback" do
@@ -133,15 +159,5 @@ get "/auth/:provider/callback" do
   session['image'] = auth['info']['image']
   session['token'] = auth['credentials']['token']
   session['secret'] = auth['credentials']['secret']
-  tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
-  Checkins.create(
-    :uid => session['uid'],
-    :nickname => session['nickname'],
-    :image => session['image'],
-    :token => session['token'],
-    :secret => session['secret'],
-    :address => session['address']
-  )
-  ikachan(session['nickname'] + " が " + session['address'] + " にいます")
   redirect "/" + URI.escape(session['address'])
 end
