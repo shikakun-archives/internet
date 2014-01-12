@@ -48,9 +48,9 @@ describe 'The Internet' do
         before do
           stub_request(:get, "http://d.hatena.ne.jp/keyword?ie=utf8&mode=rss&word=#{encoded_path}").
             to_return(open(File.join(File.dirname(__FILE__), 'fixtures', "#{encoded_path}.rss")))
-          %w[uid nickname image token secret address csrf_token].each do |key|
+          [:uid, :nickname, :image, :token, :secret, :address, :csrf_token, :flash].each do |key|
             Rack::Session::Abstract::SessionHash.any_instance.
-              stub(:[]).with(key).and_return(key)
+              stub(:[]).with(key).and_return(key.to_s)
           end
         end
 

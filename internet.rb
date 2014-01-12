@@ -1,7 +1,8 @@
 # coding: utf-8
 require 'securerandom'
+require 'bundler'
+Bundler.require
 
-Dotenv.load
 Sequel::Model.plugin(:schema)
 
 db = {
@@ -34,22 +35,24 @@ class Checkins < Sequel::Model
   end
 end
 
-use Rack::Session::Cookie,
-  :key => 'rack.session',
-  :path => '/',
-  :expire_after => 3600,
-  :secret => ENV['SESSION_SECRET']
-
-use OmniAuth::Builder do
-  provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+configure do
+  use Rack::Session::Cookie,
+    key: 'rack.session',
+    path: '/',
+    expire_after: 3600,
+    secret: ENV['SESSION_SECRET']
+  use OmniAuth::Builder do
+    provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
+  end
+  set :slim, format: :html5
 end
 
 before do
   Twitter.configure do |config|
     config.consumer_key       = ENV['TWITTER_CONSUMER_KEY']
     config.consumer_secret    = ENV['TWITTER_CONSUMER_SECRET']
-    config.oauth_token        = session['token']
-    config.oauth_token_secret = session['secret']
+    config.oauth_token        = session[:token]
+    config.oauth_token_secret = session[:secret]
   end
 end
 
@@ -81,42 +84,6 @@ get "/" do
   redirect "/%e6%b8%8b%e8%b0%b7"
 end
 
-get "/:address" do
-  if @params[:address] == "サイトマップ"
-    sites = Array.new
-    Checkins.each { |r|
-      sites << r.address
-    }
-    @sitemaps = sites.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
-    slim :sitemap
-  elsif @params[:address] == "最近のチェックイン"
-    @recents = Checkins.limit(50).order_by(Sequel.desc(:id))
-    slim :recent
-  else
-    visitors = Array.new
-    Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id)).each { |r|
-      visitors << r.nickname
-    }
-    visitors = visitors.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
-    @mayor = visitors[0]
-
-    keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
-    descriptions = Array.new
-    keyword.items.each { |r|
-      descriptions << r.description
-    }
-    if descriptions[0] && /。/ =~ descriptions[0].force_encoding('UTF-8')
-      @detail = descriptions[0].force_encoding('UTF-8').split('。').first
-    end
-
-    @button = request.url.gsub(/http:/, '') + '/button'
-    session['csrf_token'] = SecureRandom.base64
-
-    @checkins = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id))
-    slim :index
-  end
-end
-
 get "/:address/button" do
   content_type :txt
   <<-JAVASCRIPT
@@ -125,7 +92,8 @@ document.write("<input type=\\"button\\" value=\\"チェックイン\\" onclick=
 end
 
 before "/:address/checkin" do
-  if @params[:csrf_token] != session['csrf_token']
+  session[:address] = @params[:address]
+  if @params[:csrf_token] != session[:csrf_token]
     flash[:alert] = 'csrf token is invalid'
     redirect "/#{URI.escape(@params[:address])}"
   end
@@ -133,31 +101,67 @@ before "/:address/checkin" do
   begin
     twitter_clinet.verify_credentials
   rescue
-    session['address'] = @params[:address]
     redirect "/auth/twitter"
   end
 end
 
 post "/:address/checkin" do
   Checkins.create(
-    :uid => session['uid'],
-    :nickname => session['nickname'],
-    :image => session['image'],
-    :token => session['token'],
-    :secret => session['secret'],
-    :address => session['address']
+    uid: session[:uid],
+    nickname: session[:nickname],
+    image: session[:image],
+    token: session[:token],
+    secret: session[:secret],
+    address: session[:address]
   )
-  tweet(session['address'] + "にいます http://t.heinter.net/" + URI.escape(session['address']))
-  ikachan(session['nickname'] + " が " + session['address'] + " にいます")
+  tweet(session[:address] + "にいます http://t.heinter.net/" + URI.escape(session[:address]))
+  ikachan(session[:nickname] + " が " + session[:address] + " にいます")
+  session[:address] = nil
   redirect "/#{URI.escape(@params[:address])}"
 end
 
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
-  session['uid'] = auth['uid']
-  session['nickname'] = auth['info']['nickname']
-  session['image'] = auth['info']['image']
-  session['token'] = auth['credentials']['token']
-  session['secret'] = auth['credentials']['secret']
-  redirect "/" + URI.escape(session['address'])
+  session[:uid] = auth['uid']
+  session[:nickname] = auth['info']['nickname']
+  session[:image] = auth['info']['image']
+  session[:token] = auth['credentials']['token']
+  session[:secret] = auth['credentials']['secret']
+  redirect "/" + URI.escape(session[:address])
 end
+
+get "/logout" do
+  session.clear
+  flash[:notice] = 'インターネットを終了しました'
+  redirect '/'
+end
+
+get "/サイトマップ" do
+  sites = Checkins.inject([]) { |sites, r| sites << r.address }
+  @sitemaps = sites.group_by {|e| e}.sort_by {|_, v| -v.size }.map(&:first)
+  slim :sitemap
+end
+
+get "/最近のチェックイン" do
+  @recents = Checkins.limit(50).order_by(Sequel.desc(:id))
+  slim :recent
+end
+
+get "/:address" do
+  visitors = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id)).
+    inject([]) {|visitors, r| visitors << r.nickname }.
+    group_by {|e| e }.sort_by {|_, v| -v.size }.map(&:first)
+  @mayor = visitors[0]
+
+  keyword = SimpleRSS.parse open('http://d.hatena.ne.jp/keyword?mode=rss&ie=utf8&word=' + URI.escape(@params[:address]))
+  descriptions = keyword.items.inject([]) { |descriptions, r| descriptions << r.description }
+  if descriptions[0] && /。/ =~ descriptions[0].force_encoding('UTF-8')
+    @detail = descriptions[0].force_encoding('UTF-8').split('。').first
+  end
+
+  @button = request.url.gsub(/http:/, '') + '/button'
+  session[:csrf_token] = SecureRandom.base64
+
+  @checkins = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id))
+    slim :index
+  end
