@@ -7,6 +7,19 @@ describe 'The Internet' do
     expect(last_response).to be_redirect
   end
 
+  describe 'GET /サイトマップ and /最近のチェックイン' do
+    %w[サイトマップ 最近のチェックイン].each do |path|
+      let(:encoded_path) do
+        URI.escape(path)
+      end
+
+      it "GET /#{path}" do
+        get "/#{encoded_path}"
+        expect(last_response.status).to eq(200)
+      end
+    end
+  end
+
   describe 'GET /:address' do
     context '渋谷' do
       before do
@@ -23,19 +36,6 @@ describe 'The Internet' do
         expect(last_response.status).to eq(200)
       end
     end
-
-    describe 'GET /サイトマップ and /最近のチェックイン' do
-      %w[サイトマップ 最近のチェックイン].each do |path|
-        let(:encoded_path) do
-          URI.escape(path)
-        end
-
-        it "GET /#{path}" do
-          get "/#{encoded_path}"
-          expect(last_response.status).to eq(200)
-        end
-      end
-    end
   end
 
   describe 'POST /:address/checkin' do
@@ -48,7 +48,7 @@ describe 'The Internet' do
         before do
           stub_request(:get, "http://d.hatena.ne.jp/keyword?ie=utf8&mode=rss&word=#{encoded_path}").
             to_return(open(File.join(File.dirname(__FILE__), 'fixtures', "#{encoded_path}.rss")))
-          [:uid, :nickname, :image, :token, :secret, :address, :csrf_token, :flash].each do |key|
+          %i[uid nickname image token secret address csrf_token flash].each do |key|
             Rack::Session::Abstract::SessionHash.any_instance.
               stub(:[]).with(key).and_return(key.to_s)
           end
@@ -95,6 +95,20 @@ describe 'The Internet' do
     xit 'sessionにTwitterアカウント情報がセットされること' do
       get '/auth/:provider/callback'
       session['uid'].should == @auth['omniauth.auth']['uid']
+    end
+  end
+
+  describe 'GET /logout' do
+    before do
+      %i[uid nickname image token secret address csrf_token flash].push('uid').each do |key|
+        Rack::Session::Abstract::SessionHash.any_instance.stub(:[]).with(key).and_return(key.to_s)
+      end
+      get '/'
+    end
+
+    it 'clear メソッドが呼ばれる' do
+      Rack::Session::Abstract::SessionHash.any_instance.should_receive(:clear)
+      get '/logout'
     end
   end
 end
