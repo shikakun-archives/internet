@@ -1,7 +1,5 @@
 # coding: utf-8
 require 'securerandom'
-require 'bundler'
-Bundler.require
 
 Sequel::Model.plugin(:schema)
 
