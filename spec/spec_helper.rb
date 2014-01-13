@@ -1,18 +1,8 @@
+require 'bundler'
+Bundler.require
 require 'rspec'
-require 'sinatra'
-require 'sinatra/flash'
 require 'rack/test'
-require 'sequel'
-require 'omniauth'
-require 'omniauth-twitter'
-require 'twitter'
-require 'simple-rss'
-require 'open-uri'
-require 'slim'
 require 'webmock/rspec'
-require 'uri'
-require 'dotenv'
-require 'awesome_print'
 
 set :environment, :test
 set :root, File.join(File.dirname(__FILE__), '..')

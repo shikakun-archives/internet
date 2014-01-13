@@ -41,6 +41,10 @@ html
         li
           a href="渋谷"
             | 渋谷
+      - if session[:nickname]
+        li
+          #{session[:nickname]} としてインターネット中
+          a href="/logout" onclick="if (!confirm('インターネットを終了します。よろしいですか？')) return false;" インターネットを終了する
     p
       | あなたのホームページを#{@params[:address]}にできます&nbsp;
       input type="text" value="<script type='text/javascript' src='#{@button}'></script>"
