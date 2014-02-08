@@ -135,17 +135,20 @@ get "/logout" do
 end
 
 get "/サイトマップ" do
+  @address = 'サイトマップ'
   sites = Checkins.inject([]) { |sites, r| sites << r.address }
   @sitemaps = sites.group_by {|e| e}.sort_by {|_, v| -v.size }.map(&:first)
   slim :sitemap
 end
 
 get "/最近のチェックイン" do
+  @address = '最近のチェックイン'
   @recents = Checkins.limit(50).order_by(Sequel.desc(:id))
   slim :recent
 end
 
 get "/:address" do
+  @address = @params[:address]
   visitors = Checkins.filter(address: @params[:address]).order_by(Sequel.desc(:id)).
     inject([]) {|visitors, r| visitors << r.nickname }.
     group_by {|e| e }.sort_by {|_, v| -v.size }.map(&:first)

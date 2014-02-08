@@ -2,18 +2,18 @@ DOCTYPE html
 html
   head
     title
-      - if @params[:address]
-        | #{@params[:address]}
+      - if @address
+        | #{@address}
       - else
         | インターネット
   body
     == styled_flash
     - if @detail
-      img src="http://#{@params[:address]}.jpg.to/" alt=""
+      img src="http://#{@address}.jpg.to/" alt=""
     p
-      = @params[:address]
+      = @address
 
-    form action="/#{@params[:address]}/checkin" method="post"
+    form action="/#{@address}/checkin" method="post"
       input type="hidden" name="csrf_token" value="#{session['csrf_token']}"
       p
         input type="submit" value="チェックイン"
@@ -25,19 +25,19 @@ html
       p
           = @mayor
           | &nbsp;が
-          = @params[:address]
+          = @address
           | のメイヤーです。
     == yield
     ul
-      - if @params[:address] != "サイトマップ"
+      - if @address != "サイトマップ"
         li
           a href="サイトマップ"
             | サイトマップ
-      - if @params[:address] != "最近のチェックイン"
+      - if @address != "最近のチェックイン"
         li
           a href="最近のチェックイン"
             | 最近のチェックイン
-      - if @params[:address] != "渋谷"
+      - if @address != "渋谷"
         li
           a href="渋谷"
             | 渋谷
@@ -46,5 +46,5 @@ html
           #{session[:nickname]} としてインターネット中
           a href="/logout" onclick="if (!confirm('インターネットを終了します。よろしいですか？')) return false;" インターネットを終了する
     p
-      | あなたのホームページを#{@params[:address]}にできます&nbsp;
+      | あなたのホームページを#{@address}にできます&nbsp;
       input type="text" value="<script type='text/javascript' src='#{@button}'></script>"
