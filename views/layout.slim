@@ -1,6 +1,7 @@
 DOCTYPE html
 html
   head
+    meta charset="utf-8"
     title
       - if @address
         | #{@address}
@@ -15,7 +16,9 @@ html
       input type="hidden" name="csrf_token" value="#{session['csrf_token']}"
       p
         - if session[:nickname]
-          p #{session[:nickname]} が#{@address}にいます
+          p
+            a href="/#{session[:nickname]}" #{session[:nickname]}
+            | &nbsp;が#{@address}にいます
           input type="submit" value="チェックイン"
         - else
           p #{@address}にチェックインするには、インターネットに接続する必要があります
@@ -25,10 +28,8 @@ html
         == @detail
     - if @mayor
       p
-        = @mayor
-        | &nbsp;が
-        = @address
-        | のメイヤーです
+        a href="/#{@mayor}" #{@mayor}
+        | &nbsp;が#{@address}のメイヤーです
     == yield
     ul
       - if @address != "サイトマップ"
