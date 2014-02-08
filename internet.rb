@@ -130,7 +130,7 @@ end
 
 get "/logout" do
   session.clear
-  flash[:notice] = 'インターネットを終了しました'
+  flash[:notice] = 'インターネットとの接続を切断しました'
   redirect '/'
 end
 

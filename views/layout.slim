@@ -8,25 +8,27 @@ html
         | インターネット
   body
     == styled_flash
+    p #{@address}
     - if @detail
       img src="http://#{@address}.jpg.to/" alt=""
-    p
-      = @address
-
     form action="/#{@address}/checkin" method="post"
       input type="hidden" name="csrf_token" value="#{session['csrf_token']}"
       p
-        input type="submit" value="チェックイン"
-
+        - if session[:nickname]
+          p #{session[:nickname]} が#{@address}にいます
+          input type="submit" value="チェックイン"
+        - else
+          p #{@address}にチェックインするには、インターネットに接続する必要があります
+          input type="submit" value="インターネットに接続する"
     - if @detail
       p
         == @detail
     - if @mayor
       p
-          = @mayor
-          | &nbsp;が
-          = @address
-          | のメイヤーです。
+        = @mayor
+        | &nbsp;が
+        = @address
+        | のメイヤーです。
     == yield
     ul
       - if @address != "サイトマップ"
@@ -43,8 +45,7 @@ html
             | 渋谷
       - if session[:nickname]
         li
-          #{session[:nickname]} としてインターネット中
-          a href="/logout" onclick="if (!confirm('インターネットを終了します。よろしいですか？')) return false;" インターネットを終了する
+          a href="/logout" onclick="if (!confirm('インターネットとの接続を切断します。よろしいですか？')) return false;" インターネットとの接続を切断する
     p
       | あなたのホームページを#{@address}にできます&nbsp;
       input type="text" value="<script type='text/javascript' src='#{@button}'></script>"
